@@ -1,17 +1,18 @@
 {
-    "user" : [
-        {
-            "name" : "Pepe",
-            "address" : "London",
-            "email" : "admin@example.com",
-            "contact" : "23232323",
-            "id" : 1
-        },{
-            "name" : "Raul",
-            "address" : "Mexico",
-            "email" : "raul@example.com",
-            "contact" : "21223",
-            "id" : 2
-        }
-        ]
+  "user": [
+    {
+      "name": "Pepe1",
+      "address": "London",
+      "email": "admin@example.com",
+      "contact": "23232323",
+      "id": 1
+    },
+    {
+      "name": "Maikel2",
+      "email": "mas@asa.cl",
+      "contact": "as",
+      "address": "dsd",
+      "id": 2
+    }
+  ]
 }

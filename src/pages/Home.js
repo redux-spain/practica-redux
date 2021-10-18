@@ -8,17 +8,21 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { useDispatch, useSelector } from "react-redux";
-import { loadUsers } from '../redux/Users/UsersActions';
+import { loadUsers, deleteUsers  } from '../redux/Users/UsersActions';
 import Container from '@mui/material/Container';
-import Stack from '@mui/material/Stack';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import Button from '@mui/material/Button';
+import {useHistory} from "react-router-dom";
+
 
 export default function Home() {
 
     let dispatch = useDispatch();
     const {  users  } = useSelector(state => state.users)
+    let history = useHistory();
+
 
     useEffect(() => {
         dispatch(loadUsers());
@@ -44,22 +48,24 @@ export default function Home() {
         },
       }));
       
-      function createData(name, calories, fat, carbs, protein) {
-        return { name, calories, fat, carbs, protein };
-      }
       
-      const rows = [
-        createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-        createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-        createData('Eclair', 262, 16.0, 24, 6.0),
-        createData('Cupcake', 305, 3.7, 67, 4.3),
-        createData('Gingerbread', 356, 16.0, 49, 3.9),
-      ]
+
+    const handleDelete = (id) => {
+        if(window.confirm('Are you sure you want to delete?')) {
+            dispatch(deleteUsers(id))
+        }
+    }
 
     return (
         <>
-        <h1>CRUD</h1>
+        
         <Container>
+        <h1>CRUD</h1>
+        <div style={{ marginBottom: 20 }} align="left">
+            <Button variant="contained" onClick={()=>history.push("addUser")}  >CREATE</Button>
+        </div>
+
+
             <TableContainer component={Paper}>
       <Table sx={{ minWidth: 900 }} aria-label="customized table">
         <TableHead>
@@ -80,11 +86,17 @@ export default function Home() {
               <StyledTableCell align="center">{row.address}</StyledTableCell>
               <StyledTableCell align="center">
                 
-                <IconButton  color="secondary"  aria-label="delete" size="large">
+                <IconButton  color="secondary"  
+                             aria-label="delete" 
+                             size="large"
+                             onClick={()=>handleDelete(row.id)}
+                             >
                     <DeleteIcon />
                 </IconButton>
 
-                <IconButton  color="primary" aria-label="delete" size="large">
+                <IconButton  color="primary" aria-label="delete" size="large"
+                            onClick={() => history.push(`/editUser/${row.id}`)}
+                >
                     <EditIcon />
                 </IconButton>
 
